@@ -1,17 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <!-- <div class="login" v-if="!this.$store.state.login">
+      <Login />
+      <button type="button" name="button" @click="login">login</button>
+    </div> -->
+    <!-- <div class="initPage" v-else> -->
+      <router-view></router-view>
+      <Navigate />
+    <!-- </div> -->
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Navigate from './components/navigate/index'
+import Login from './components/login/Login'
+import { getInfo } from './apis/index'
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Navigate,
+    Login
+  },
+  methods: {
+    login() {
+      this.$router.push({
+        path: '/home'
+      })
+    },
+    mounted() {
+      // let login = this.$store.state.login
+      // if(!login) {
+      //   this.$router.push('login')
+      // }
+      getInfo().then(a => console.log(a))
+    }
   }
 }
 </script>
